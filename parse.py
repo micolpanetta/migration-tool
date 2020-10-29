@@ -1,4 +1,5 @@
 from os import walk
+from itertools import zip_longest
 
 def files_in(path):
     files = []
@@ -25,15 +26,24 @@ def parse(path):
 
 def find_pair(b2b, see_dicts):
     found = [see for see in see_dicts if see["bgm"] == b2b["bgm"]]
-    if len(found) == 0 :
+    if len(found) == 0:
         print("Nessuna corrispondenza trovata in SEE per BGM : " + b2b["bgm"])
         return None
     return found[0]
 
+def remove_last_if_empty(list):
+    if not list:
+        return list
+    #check ultimo elemento stringa vuota per split
+    if not list[-1]:
+        return list[:-1]
+
+    return list
+
 def diff(pair):
-    values_b2b = pair[0]["values"]
-    values_see = pair[1]["values"]
-    values = zip(values_b2b, values_see)
+    values_b2b = remove_last_if_empty(pair[0]["values"])
+    values_see = remove_last_if_empty(pair[1]["values"])
+    values = zip_longest(values_b2b, values_see, fillvalue=None)
     return  {
         "bgm": pair[0]["bgm"],
         "diff": [ (b2b_val, see_val, "OK" if b2b_val == see_val else "KO") for (b2b_val, see_val) in values ]

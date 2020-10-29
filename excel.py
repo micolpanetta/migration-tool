@@ -1,7 +1,7 @@
 from openpyxl import Workbook
 from datetime import datetime
 
-def save(b2b, see, diffs):
+def save_excel(b2b, see, diffs):
     wb = Workbook()
     b2b_sheet = wb.active
     b2b_sheet.title = "B2B"
@@ -18,4 +18,4 @@ def save(b2b, see, diffs):
         for row in diff["diff"]:
             diffs_sheet.append([row[0], row[1], row[2]])
 
-    wb.save(filename = "./diff-" + datetime.today().strftime('%Y%m%d%H%M%S') + ".xlsx")
+    wb.save_excel(filename = "./diff-" + datetime.today().strftime('%Y%m%d%H%M%S') + ".xlsx")
