@@ -8,6 +8,6 @@ path_see = path_see if path_see != "" else "./SEE"
 
 (b2b, see, diff) = get_diffs(path_b2b, path_see)
 
-save_excel (b2b, see, diff)
+save_excel(b2b, see, diff)
 
 input("Il file excel e' stato salvato con successo nello stesso path in cui e' stato eseguito il programma.\nPremere invio per terminare...")

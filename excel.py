@@ -18,4 +18,4 @@ def save_excel(b2b, see, diffs):
         for row in diff["diff"]:
             diffs_sheet.append([row[0], row[1], row[2]])
 
-    wb.save_excel(filename = "./diff-" + datetime.today().strftime('%Y%m%d%H%M%S') + ".xlsx")
+    wb.save(filename = "./diff-" + datetime.today().strftime('%Y%m%d%H%M%S') + ".xlsx")
