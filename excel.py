@@ -8,13 +8,16 @@ def save_excel(b2b, see, ids):
     b2b_sheet.title = "B2B"
     see_sheet = wb.create_sheet(title="SEE")
     result_sheet = wb.create_sheet(title="Result")
-
+    result_sheet.append(["Key", "Number of KO", "Result Counter"])
 
     for val in b2b:
         b2b_sheet.append([val["bgm"], val["content"]])
 
     for val in see:
         see_sheet.append([val["bgm"], val["content"]])
+
+    for val in ids:
+        result_sheet.append([ val["bgm"], val["ko_count"], val["unh_unt_result"] ])
 
     for id in ids:
         sheet = wb.create_sheet(title="ID"+id["bgm"])
