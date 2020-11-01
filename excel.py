@@ -1,3 +1,4 @@
+from datetime import datetime
 from openpyxl import Workbook
 from openpyxl.styles import Border, Side, PatternFill, Font, Alignment
 
@@ -9,8 +10,8 @@ def make_excel(b2b, see, ids):
     create_result_sheet(ids, wb)
     create_ids_sheets(ids, wb)
 
-    #    wb.save(filename="./diff-" + datetime.today().strftime('%Y%m%d%H%M%S') + ".xlsx")
-    wb.save(filename="./diff.xlsx")  # for testing
+    wb.save(filename="./diff-" + datetime.today().strftime('%Y%m%d%H%M%S') + ".xlsx")
+    #    wb.save(filename="./diff.xlsx")  # for testing
 
 
 def create_b2b_sheet(b2b, wb):
