@@ -45,9 +45,17 @@ def get_row_by_key(values, name):
     try:
         return [row for row in values if row.startswith(name)][0]
     except:
-        print("Nessuna corrispondenza trovata per il segmento " + name.upper())
-        exit()
-
+        try:
+            return [row for row in values if row.startswith("BGM")][0]
+        except:
+            try:
+                return [row for row in values if row.startswith("ORF")][0]
+            except:
+                try:
+                    return [row for row in values if row.startswith("DEL")][0]
+                except:
+                    print("Nessuna corrispondenza trovata per il segmento " + name.upper())
+                    exit()
 
 def find_pair(b2b, see_dicts, segment):
     found = [see for see in see_dicts if see["segment"] == b2b["segment"]]
