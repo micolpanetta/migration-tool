@@ -3,7 +3,7 @@ from openpyxl import Workbook
 from openpyxl.styles import Border, Side, PatternFill, Font, Alignment
 
 
-def make_excel(b2b, see, ids):
+def make_excel(b2b, see, ids, segment):
     wb = Workbook()
     create_b2b_sheet(b2b, wb)
     create_see_sheet(see, wb)
@@ -18,13 +18,13 @@ def create_b2b_sheet(b2b, wb):
     b2b_sheet = wb.active
     b2b_sheet.title = "B2B"
     for val in b2b:
-        b2b_sheet.append([val["bgm"], val["content"]])
+        b2b_sheet.append([val["segment"], val["content"]])
 
 
 def create_see_sheet(see, wb):
     see_sheet = wb.create_sheet(title="SEE")
     for val in see:
-        see_sheet.append([val["bgm"], val["content"]])
+        see_sheet.append([val["segment"], val["content"]])
 
 
 def create_result_sheet(ids, wb):
@@ -61,7 +61,7 @@ def set_result_header_style(sheet):
 
 def insert_result_data(ids, sheet):
     for val in ids:
-        sheet.append([val["bgm"], val["ko_count"], val["unh_unt_result"]])
+        sheet.append([val["segment"], val["ko_count"], val["unh_unt_result"]])
 
 
 def set_borders_style(sheet, range1, range2):
@@ -84,7 +84,7 @@ def create_ids_sheets(ids, wb):
 
 
 def create_id_sheet(id, wb):
-    sheet = wb.create_sheet(title="ID" + id["bgm"])
+    sheet = wb.create_sheet(title="ID" + id["segment"])
     make_header(sheet)
     make_diff(id, sheet)
     make_counters_check(id, sheet)

@@ -4,6 +4,8 @@ Remove-Item C:\Users\Betacom\Desktop\Example\migration_tool\diff.xlsx
 
 echo "C:\Users\Betacom\Desktop\Example\migration_tool\dist\B2B
 C:\Users\Betacom\Desktop\Example\migration_tool\dist\SEE
+ORF
+
 
 " | python main.py
 
