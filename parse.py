@@ -5,6 +5,8 @@ from itertools import zip_longest
 def parse_files(path_b2b, path_see, segment):
     b2b = [parse(file, segment) for file in files_in(path_b2b)]
     see = [parse(file, segment) for file in files_in(path_see)]
+    b2b = [x for x in b2b if x is not None]
+    see = [x for x in see if x is not None]
     pairs = make_pairs(b2b, see, segment)
     ids = [compute_id_data(pair) for pair in pairs]
     return b2b, see, ids
@@ -14,8 +16,10 @@ def parse(file_path, segment):
     with open(file_path, 'r') as file:
         content = ''.join(file.readlines())
     values = remove_last_if_empty(content.split("'"))
-    segment_row = get_row_by_key(values, segment.upper())
-
+    segment_row = get_row_by_key(values, segment)
+    if not segment_row:
+        print("Il file " + file_path + " non contiene il segmento " + segment + ". Il file non verrà considerato.")
+        return None
     return {
         "content": content,
         "values": values,
@@ -42,28 +46,16 @@ def parse_segment(segment_row):
 
 
 def get_row_by_key(values, name):
-    try:
-        return [row for row in values if row.startswith(name)][0]
-    except:
-        print("Nessuna corrispondenza trovata per il segmento " + name.upper())
-        exit()
-        #try:
-            #return [row for row in values if row.startswith("BGM")][0]
-        #except:
-            #try:
-                #return [row for row in values if row.startswith("ORF")][0]
-            #except:
-                #try:
-                    #return [row for row in values if row.startswith("DEL")][0]
-                #except:
-                    #print("Nessuna corrispondenza trovata per il segmento " + name.upper())
-                    #exit()
+    matches = [row for row in values if row.startswith(name)]
+    if not matches:
+        return None
+    return matches[0]
 
 
 def find_pair(b2b, see_dicts, segment):
     found = [see for see in see_dicts if see["segment"] == b2b["segment"]]
     if len(found) == 0:
-        print("Nessuna corrispondenza trovata in SEE per " + segment.upper() + ": " + b2b["segment"])
+        print("Nessuna corrispondenza trovata in SEE per " + segment + ": " + b2b["segment"])
         return None
     return found[0]
 
